@@ -4,7 +4,6 @@ into RDD
 """
 
 from sqlite3 import Row
-
 from pyspark import SparkConf
 from pyspark import SparkContext
 
