@@ -1,0 +1,8 @@
+{
+  "data" : {
+    "file_path": "Path/to/data files"
+  },
+
+  "model_path" : "Path/to/model"
+}
+
