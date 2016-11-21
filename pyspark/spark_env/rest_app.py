@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import logging
@@ -9,8 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-MODEL_PATH = "..model_path"
-TEMPLATES = 'template_path'
+TEMPLATES = 'path/to/index.html'
 
 app = Flask(__name__, template_folder=TEMPLATES)
 
@@ -47,13 +47,23 @@ def init_spark_context():
     conf = SparkConf().setAppName("kmeans-server")
     global sc
     sc = SparkContext(conf=conf, pyFiles=[
-        '...engine path',
+        'Path/to/kmeans_engine.py',
         'rest_app.py',
     ])
     return sc
 
 
+def get_kmeas_config():
+
+    if os.path.isfile('kmeans_config.json') is not True:
+        FileNotFoundError
+    with open('kmeans_config.json') as data_file:
+        config = json.load(data_file)
+        return config
+
 if __name__ == "__main__":
     sp_ctx = init_spark_context()
-    sys.path.append('..path to kmeans folder')
+    sys.path.append('/kmeans')
+    config = get_kmeas_config()
+    MODEL_PATH = config["model_path"]
     create_app(sp_ctx, MODEL_PATH)
